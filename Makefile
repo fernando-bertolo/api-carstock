@@ -2,7 +2,7 @@
 
 # Variables
 MAVEN_CMD = mvn
-SPRING_BOOT_PROFILE = dev
+SPRING_BOOT_PROFILE = development
 
 # Default target
 .PHONY: default
