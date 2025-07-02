@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.carstock.main.shared.exceptions.ResourceConflictException;
+import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,23 +32,22 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Optional<CompanyEntity> findById(Long id) {
-        return companyRepository.findById(id);
+    public CompanyEntity findById(Long id) {
+        return companyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Company with id " + id + " not found"));
     }
 
-    public Optional<CompanyEntity> update(Long id, CreateCompanyDTO dto) {
-        return companyRepository.findById(id)
-            .map(company -> {
-                CompanyEntity updatedCompany = new CompanyEntity(id, dto.name(), dto.cnpj());
-                return companyRepository.save(updatedCompany);
-            });
+    public CompanyEntity update(Long id, CreateCompanyDTO dto) {
+        CompanyEntity company = this.findById(id);
+
+        CompanyEntity companyEntity = new CompanyEntity(id, dto.name(), dto.cnpj());
+
+        return companyRepository.save(companyEntity);
     }
 
     public boolean delete(Long id) {
-        if (companyRepository.existsById(id)) {
-            companyRepository.deleteById(id);
-            return true;
-        }
-        return false;
+        this.findById(id);
+        companyRepository.deleteById(id);
+        return true;
     }
 }
