@@ -3,6 +3,7 @@ package br.com.carstock.main.features.company;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.carstock.main.shared.exceptions.ResourceConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ public class CompanyService {
     }
 
     public CompanyEntity create(CreateCompanyDTO dto) {
+        Optional<CompanyEntity> existCompanyCnpj = companyRepository.findByCnpj(dto.cnpj());
+
+        if(existCompanyCnpj.isPresent()) {
+          throw new ResourceConflictException("Company with this CNPJ already exists");
+        }
+
         CompanyEntity company = new CompanyEntity(dto.name(), dto.cnpj());
         return companyRepository.save(company);
     }
