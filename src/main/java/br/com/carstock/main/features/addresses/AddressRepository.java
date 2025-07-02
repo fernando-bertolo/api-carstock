@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdressRepository extends JpaRepository<AdressEntity, Long> {
-    Optional<AdressEntity> findByNumberAndZipcode(Integer number, String zipcode);
+public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
+    Optional<AddressEntity> findByNumberAndZipcode(Integer number, String zipcode);
 }

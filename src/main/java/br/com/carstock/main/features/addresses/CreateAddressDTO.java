@@ -2,7 +2,7 @@ package br.com.carstock.main.features.addresses;
 
 import jakarta.validation.constraints.*;
 
-public record CreateAdressDTO(
+public record CreateAddressDTO(
         @NotBlank(message = "Street is required")
         @Size(min = 5, max = 100, message = "Street must be between 5 and 100 characters")
         String street,

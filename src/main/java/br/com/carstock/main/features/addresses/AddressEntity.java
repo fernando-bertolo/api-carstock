@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "addresses")
-public class AdressEntity {
+public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +28,7 @@ public class AdressEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public AdressEntity(String street, String neighborhood, String city, String state, String country, Integer number, String zipcode) {
+    public AddressEntity(String street, String neighborhood, String city, String state, String country, Integer number, String zipcode) {
         this.street = street;
         this.neighborhood = neighborhood;
         this.city = city;
@@ -38,7 +38,18 @@ public class AdressEntity {
         this.zipcode = zipcode;
     }
 
-    public AdressEntity() {
+    public AddressEntity(Long id, String street, String neighborhood, String city, String state, String country, Integer number, String zipcode) {
+        this.id = id;
+        this.street = street;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.number = number;
+        this.zipcode = zipcode;
+    }
+
+    public AddressEntity() {
         this.id = 0L;
         this.street = "";
         this.neighborhood = "";
