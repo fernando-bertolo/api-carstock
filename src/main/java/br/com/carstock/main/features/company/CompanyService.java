@@ -45,9 +45,8 @@ public class CompanyService {
         return companyRepository.save(companyEntity);
     }
 
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         this.findById(id);
         companyRepository.deleteById(id);
-        return true;
     }
 }
