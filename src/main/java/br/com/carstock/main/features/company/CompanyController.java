@@ -38,22 +38,17 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CompanyEntity> findById(@PathVariable Long id) {
-        return companyService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(companyService.findById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CompanyEntity> update(@PathVariable Long id, @RequestBody @Valid CreateCompanyDTO dto) {
-        return companyService.update(id, dto)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(companyService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return companyService.delete(id) 
-            ? ResponseEntity.noContent().build()
-            : ResponseEntity.notFound().build();
+        companyService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

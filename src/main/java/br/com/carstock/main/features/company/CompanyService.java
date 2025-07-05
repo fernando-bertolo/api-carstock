@@ -3,6 +3,8 @@ package br.com.carstock.main.features.company;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.carstock.main.shared.exceptions.ResourceConflictException;
+import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class CompanyService {
     }
 
     public CompanyEntity create(CreateCompanyDTO dto) {
+        Optional<CompanyEntity> existCompanyCnpj = companyRepository.findByCnpj(dto.cnpj());
+
+        if(existCompanyCnpj.isPresent()) {
+          throw new ResourceConflictException("Company with this CNPJ already exists");
+        }
+
         CompanyEntity company = new CompanyEntity(dto.name(), dto.cnpj());
         return companyRepository.save(company);
     }
@@ -24,23 +32,21 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Optional<CompanyEntity> findById(Long id) {
-        return companyRepository.findById(id);
-    }
-
-    public Optional<CompanyEntity> update(Long id, CreateCompanyDTO dto) {
+    public CompanyEntity findById(Long id) {
         return companyRepository.findById(id)
-            .map(company -> {
-                CompanyEntity updatedCompany = new CompanyEntity(id, dto.name(), dto.cnpj());
-                return companyRepository.save(updatedCompany);
-            });
+                .orElseThrow(() -> new ResourceNotFoundException("Company with id " + id + " not found"));
     }
 
-    public boolean delete(Long id) {
-        if (companyRepository.existsById(id)) {
-            companyRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public CompanyEntity update(Long id, CreateCompanyDTO dto) {
+        CompanyEntity company = this.findById(id);
+
+        CompanyEntity companyEntity = new CompanyEntity(id, dto.name(), dto.cnpj());
+
+        return companyRepository.save(companyEntity);
+    }
+
+    public void delete(Long id) {
+        this.findById(id);
+        companyRepository.deleteById(id);
     }
 }
