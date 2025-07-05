@@ -1,5 +1,7 @@
 package br.com.carstock.main.features.addresses;
 
+import br.com.carstock.main.shared.exceptions.ResourceConflictException;
+import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +15,7 @@ public class AddressService {
     public AddressEntity create(CreateAddressDTO adressDTO) {
         this.addressRepository.findByNumberAndZipcode(adressDTO.number(), adressDTO.zipcode())
                 .ifPresent(adress -> {
-                    throw new RuntimeException("Address already exists");
+                    throw new ResourceConflictException("Address already exists");
                 });
 
         AddressEntity addressEntity = new AddressEntity(
@@ -29,12 +31,12 @@ public class AddressService {
     }
 
     public AddressEntity findById(Long id) {
-        return this.addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        return this.addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
     }
 
     public AddressEntity update(CreateAddressDTO adressDTO) {
         this.addressRepository.findByNumberAndZipcode(adressDTO.number(), adressDTO.zipcode())
-                .orElseThrow(() -> new RuntimeException("Address not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Address not found"));
 
         AddressEntity addressEntity = new AddressEntity(
                 adressDTO.street(),
@@ -50,7 +52,7 @@ public class AddressService {
     }
 
     public void delete(Long id) {
-        this.addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        this.addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
         this.addressRepository.deleteById(id);
     }
 }
