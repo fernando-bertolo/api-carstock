@@ -1,10 +1,10 @@
 package br.com.carstock.main.features.company;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.com.carstock.main.features.branches.BranchEntity;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "companies")
@@ -14,6 +14,9 @@ public class CompanyEntity {
     private Long id;
     private final String name;
     private final String cnpj;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<BranchEntity> branch = new HashSet<>();
 
     public CompanyEntity(String name, String cnpj) {
         this.name = name;
