@@ -16,15 +16,11 @@ public record CreateAddressDTO(
         @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s'-]+$", message = "City must contain only letters, spaces, hyphens and apostrophes")
         String city,
 
-        @NotBlank(message = "State is required")
-        @Size(min = 2, max = 2, message = "State must be exactly 2 characters")
-        @Pattern(regexp = "^[A-Z]{2}$", message = "State must be 2 uppercase letters")
-        String state,
+        @NotNull(message = "State is required")
+        Enum<States> state,
 
-        @NotBlank(message = "Country is required")
-        @Size(min = 2, max = 30, message = "Country must be between 2 and 30 characters")
-        @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$", message = "Country must contain only letters and spaces")
-        String country,
+        @NotNull(message = "Country is required")
+        Enum<Countries> country,
 
         @NotNull(message = "Number is required")
         @Positive(message = "Number must be positive")
