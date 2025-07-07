@@ -1,10 +1,13 @@
 package br.com.carstock.main.features.addresses;
 
+import br.com.carstock.main.features.branches.BranchEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -16,8 +19,12 @@ public class AddressEntity {
     private final String street;
     private final String neighborhood;
     private final String city;
-    private final Enum<States> state;
-    private final Enum<Countries> country;
+
+    @Enumerated(EnumType.STRING)
+    private final States state;
+
+    @Enumerated(EnumType.STRING)
+    private final Countries country;
     private final Integer number;
     private final String zipcode;
 
@@ -29,7 +36,10 @@ public class AddressEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public AddressEntity(String street, String neighborhood, String city, Enum<States> state, Enum<Countries> country, Integer number, String zipcode) {
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<BranchEntity> branch = new HashSet<>();
+
+    public AddressEntity(String street, String neighborhood, String city, States state, Countries country, Integer number, String zipcode) {
         this.street = street;
         this.neighborhood = neighborhood;
         this.city = city;
@@ -39,7 +49,7 @@ public class AddressEntity {
         this.zipcode = zipcode;
     }
 
-    public AddressEntity(UUID id, String street, String neighborhood, String city, Enum<States> state, Enum<Countries> country, Integer number, String zipcode) {
+    public AddressEntity(UUID id, String street, String neighborhood, String city, States state, Countries country, Integer number, String zipcode) {
         this.id = id;
         this.street = street;
         this.neighborhood = neighborhood;
@@ -79,11 +89,11 @@ public class AddressEntity {
         return city;
     }
 
-    public Enum<States> getState() {
+    public States getState() {
         return state;
     }
 
-    public Enum<Countries> getCountry() {
+    public Countries getCountry() {
         return country;
     }
 

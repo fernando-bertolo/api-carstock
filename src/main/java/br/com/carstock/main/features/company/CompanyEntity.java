@@ -16,8 +16,8 @@ public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private final String name;
-    private final String cnpj;
+    private String name;
+    private String cnpj;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -17,10 +17,10 @@ public record CreateAddressDTO(
         String city,
 
         @NotNull(message = "State is required")
-        Enum<States> state,
+        States state,
 
         @NotNull(message = "Country is required")
-        Enum<Countries> country,
+        Countries country,
 
         @NotNull(message = "Number is required")
         @Positive(message = "Number must be positive")
