@@ -4,6 +4,8 @@ import br.com.carstock.main.shared.exceptions.ResourceConflictException;
 import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class AddressService {
     private final AddressRepository addressRepository;
@@ -30,7 +32,7 @@ public class AddressService {
         return this.addressRepository.save(addressEntity);
     }
 
-    public AddressEntity findById(Long id) {
+    public AddressEntity findById(UUID id) {
         return this.addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
     }
 
@@ -51,7 +53,7 @@ public class AddressService {
         return this.addressRepository.save(addressEntity);
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         this.addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
         this.addressRepository.deleteById(id);
     }

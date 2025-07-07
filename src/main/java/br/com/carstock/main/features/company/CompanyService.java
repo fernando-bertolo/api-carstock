@@ -2,6 +2,7 @@ package br.com.carstock.main.features.company;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.carstock.main.shared.exceptions.ResourceConflictException;
 import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
@@ -32,12 +33,12 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public CompanyEntity findById(Long id) {
+    public CompanyEntity findById(UUID id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Company with id " + id + " not found"));
     }
 
-    public CompanyEntity update(Long id, CreateCompanyDTO dto) {
+    public CompanyEntity update(UUID id, CreateCompanyDTO dto) {
         CompanyEntity company = this.findById(id);
 
         CompanyEntity companyEntity = new CompanyEntity(id, dto.name(), dto.cnpj());
@@ -45,7 +46,7 @@ public class CompanyService {
         return companyRepository.save(companyEntity);
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         this.findById(id);
         companyRepository.deleteById(id);
     }

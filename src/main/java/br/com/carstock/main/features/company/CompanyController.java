@@ -1,6 +1,7 @@
 package br.com.carstock.main.features.company;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,17 +38,17 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompanyEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<CompanyEntity> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(companyService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CompanyEntity> update(@PathVariable Long id, @RequestBody @Valid CreateCompanyDTO dto) {
+    public ResponseEntity<CompanyEntity> update(@PathVariable UUID id, @RequestBody @Valid CreateCompanyDTO dto) {
         return ResponseEntity.ok(companyService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         companyService.delete(id);
         return ResponseEntity.noContent().build();
     }

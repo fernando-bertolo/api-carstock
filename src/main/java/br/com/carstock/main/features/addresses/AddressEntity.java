@@ -5,18 +5,19 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "addresses")
 public class AddressEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private final String street;
     private final String neighborhood;
     private final String city;
-    private final String state;
-    private final String country;
+    private final Enum<States> state;
+    private final Enum<Countries> country;
     private final Integer number;
     private final String zipcode;
 
@@ -28,7 +29,7 @@ public class AddressEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public AddressEntity(String street, String neighborhood, String city, String state, String country, Integer number, String zipcode) {
+    public AddressEntity(String street, String neighborhood, String city, Enum<States> state, Enum<Countries> country, Integer number, String zipcode) {
         this.street = street;
         this.neighborhood = neighborhood;
         this.city = city;
@@ -38,7 +39,7 @@ public class AddressEntity {
         this.zipcode = zipcode;
     }
 
-    public AddressEntity(Long id, String street, String neighborhood, String city, String state, String country, Integer number, String zipcode) {
+    public AddressEntity(UUID id, String street, String neighborhood, String city, Enum<States> state, Enum<Countries> country, Integer number, String zipcode) {
         this.id = id;
         this.street = street;
         this.neighborhood = neighborhood;
@@ -50,19 +51,19 @@ public class AddressEntity {
     }
 
     public AddressEntity() {
-        this.id = 0L;
+        this.id = UUID.randomUUID();
         this.street = "";
         this.neighborhood = "";
         this.city = "";
-        this.state = "";
-        this.country = "";
+        this.state = States.SP;
+        this.country = Countries.BRAZIL;
         this.number = 0;
         this.zipcode = "";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -78,11 +79,11 @@ public class AddressEntity {
         return city;
     }
 
-    public String getState() {
+    public Enum<States> getState() {
         return state;
     }
 
-    public String getCountry() {
+    public Enum<Countries> getCountry() {
         return country;
     }
 

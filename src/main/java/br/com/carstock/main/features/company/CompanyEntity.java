@@ -2,18 +2,30 @@ package br.com.carstock.main.features.company;
 
 import br.com.carstock.main.features.branches.BranchEntity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "companies")
 public class CompanyEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private final String name;
     private final String cnpj;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<BranchEntity> branch = new HashSet<>();
@@ -23,19 +35,19 @@ public class CompanyEntity {
         this.cnpj = cnpj;
     }
 
-    public CompanyEntity(Long id, String name, String cnpj) {
+    public CompanyEntity(UUID id, String name, String cnpj) {
         this.id = id;
         this.name = name;
         this.cnpj = cnpj;
     }
 
     public CompanyEntity() {
-        this.id = 0L;
+        this.id = UUID.randomUUID();
         this.name = "";
         this.cnpj = "";
     }
 
-    public Long getId() {
+    public UUID getId() {
         return this.id;
     }
 
