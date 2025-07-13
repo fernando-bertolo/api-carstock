@@ -17,6 +17,7 @@ public record CreateBranchDTO(
                 message = "CNPJ must be in valid format (XX.XXX.XXX/XXXX-XX)"
         )
         String cnpj,
+        boolean isHeadquarters,
         CreateCompanyDTO company,
         CreateAddressDTO address
 ) {
