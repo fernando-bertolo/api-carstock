@@ -23,6 +23,9 @@ public class BranchEntity {
     @Column(unique = true, length = 14)
     private String cnpj;
 
+    @Column(name = "is_headquarters", columnDefinition = "boolean default false")
+    private boolean isHeadquarters;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

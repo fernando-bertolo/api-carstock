@@ -29,6 +29,10 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
+    public Optional<CompanyEntity> findByCnpj(String cnpj) {
+        return companyRepository.findByCnpj(cnpj);
+    }
+
     public List<CompanyEntity> findAll() {
         return companyRepository.findAll();
     }
