@@ -1,35 +1,45 @@
 services:
-  postgres:
-    image: postgres:14
-    container_name: carstock-db
+  postgresql:
+    image: postgres:14-alpine
     environment:
       POSTGRES_DB: carstock
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: bertolo123
     ports:
-      - "5432:5432"
+      - 5433:5432
     volumes:
-      - ./.docker/db:/var/lib/postgresql/data
+      - database-data:/var/lib/postgresql/data
     networks:
-      - carstock-network
+      - api-network
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: carstock-api
-    depends_on:
-      - postgres
+  pgadmin:
+    image: dpage/pgadmin4
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/carstock
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      PGADMIN_DEFAULT_EMAIL: bertolo.dev@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: bertolo123
+    ports:
+      - 5050:80
+    volumes:
+      - ./.data/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgresql
+    networks:
+      - api-network
+
+  api-carstock:
+    build: .
+    image: api-carstock:1.0
     ports:
       - "8080:8080"
+    restart: always
     networks:
-      - carstock-network
+      - api-network
+    depends_on:
+      - postgresql
 
 networks:
-  carstock-network:
+  api-network:
     driver: bridge
+
+volumes:
+  database-data:
+    driver: local

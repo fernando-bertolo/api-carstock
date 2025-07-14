@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BranchService {
@@ -31,6 +32,10 @@ public class BranchService {
 
     public List<BranchEntity> findAll() {
         return this.branchRepository.findAll();
+    }
+
+    public List<BranchEntity> findAllById(List<UUID> branchIds) {
+        return this.branchRepository.findAllById(branchIds);
     }
 
 

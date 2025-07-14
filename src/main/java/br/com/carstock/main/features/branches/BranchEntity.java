@@ -2,12 +2,17 @@ package br.com.carstock.main.features.branches;
 
 import br.com.carstock.main.features.addresses.AddressEntity;
 import br.com.carstock.main.features.company.CompanyEntity;
+import br.com.carstock.main.features.users.UserEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.CurrentTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -45,6 +50,10 @@ public class BranchEntity {
     @ManyToOne()
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
+
+    @ManyToMany(mappedBy = "branches")
+    @JsonManagedReference
+    private Set<UserEntity> users = new HashSet<>();
 
     public void disable(){
         this.disabledAt = LocalDateTime.now();
@@ -100,4 +109,11 @@ public class BranchEntity {
         return company;
     }
 
+    public Set<UserEntity> getUsers() {
+        return this.users;
+    }
+
+    public void addUsers(UserEntity user) {
+        this.users.add(user);
+    }
 }
