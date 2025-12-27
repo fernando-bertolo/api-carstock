@@ -11,20 +11,6 @@ services:
     networks:
       - api-network
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: bertolo.dev@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: bertolo123
-    ports:
-      - 5050:80
-    volumes:
-      - ./.data/pgadmin:/var/lib/pgadmin
-    depends_on:
-      - postgresql
-    networks:
-      - api-network
-
   api-carstock:
     build: .
     image: api-carstock:1.0
