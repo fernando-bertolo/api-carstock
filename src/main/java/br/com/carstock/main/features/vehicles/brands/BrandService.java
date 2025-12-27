@@ -14,10 +14,9 @@ public class BrandService implements IBrandService{
         this.brandRepository = brandRepository;
     }
 
-
     @Override
     public void create(BrandEntity brand) {
-
+        this.brandRepository.save(brand);
     }
 
     @Override
@@ -32,6 +31,11 @@ public class BrandService implements IBrandService{
 
     @Override
     public List<BrandEntity> findAll() {
-        return List.of();
+        return this.brandRepository.findAll();
+    }
+
+    @Override
+    public BrandEntity findById(UUID id) {
+        return null;
     }
 }

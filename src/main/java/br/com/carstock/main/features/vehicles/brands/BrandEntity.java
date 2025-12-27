@@ -1,6 +1,8 @@
 package br.com.carstock.main.features.vehicles.brands;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "brands")
+@Getter
+@Setter
 public class BrandEntity {
 
     @Id
@@ -17,7 +21,7 @@ public class BrandEntity {
 
     private String name;
 
-    private boolean is_active;
+    private boolean active;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -26,4 +30,16 @@ public class BrandEntity {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+
+    public BrandEntity(UUID id, String name, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+    }
+
+    public BrandEntity(String name, boolean active) {
+        this.name = name;
+        this.active = active;
+    }
 }

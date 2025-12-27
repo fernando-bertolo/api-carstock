@@ -8,4 +8,5 @@ public interface IBrandService {
     boolean update(BrandEntity brand, UUID id);
     boolean delete(UUID id);
     List<BrandEntity> findAll();
+    BrandEntity findById(UUID id);
 }
