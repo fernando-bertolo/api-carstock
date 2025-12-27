@@ -31,6 +31,7 @@ public class BrandEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    public BrandEntity() {}
 
     public BrandEntity(UUID id, String name, boolean active) {
         this.id = id;
