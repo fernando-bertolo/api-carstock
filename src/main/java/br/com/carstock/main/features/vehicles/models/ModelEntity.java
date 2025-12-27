@@ -1,6 +1,6 @@
-package br.com.carstock.main.features.vehicles.brands;
+package br.com.carstock.main.features.vehicles.models;
 
-import br.com.carstock.main.features.vehicles.models.ModelEntity;
+import br.com.carstock.main.features.vehicles.brands.BrandEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +9,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "brands")
+@Table(name = "models")
 @Getter
 @Setter
-public class BrandEntity {
+public class ModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,8 +25,9 @@ public class BrandEntity {
 
     private boolean active;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    private List<ModelEntity> models = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", nullable = false)
+    private BrandEntity brand;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -37,16 +37,18 @@ public class BrandEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public BrandEntity() {}
+    public ModelEntity() {}
 
-    public BrandEntity(UUID id, String name, boolean active) {
+    public ModelEntity(UUID id, String name, boolean active, BrandEntity brand) {
         this.id = id;
         this.name = name;
         this.active = active;
+        this.brand = brand;
     }
 
-    public BrandEntity(String name, boolean active) {
+    public ModelEntity(String name, boolean active, BrandEntity brand) {
         this.name = name;
         this.active = active;
+        this.brand = brand;
     }
 }

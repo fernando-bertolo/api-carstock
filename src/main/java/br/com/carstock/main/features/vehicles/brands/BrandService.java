@@ -3,6 +3,7 @@ package br.com.carstock.main.features.vehicles.brands;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -35,7 +36,7 @@ public class BrandService implements IBrandService{
     }
 
     @Override
-    public BrandEntity findById(UUID id) {
-        return null;
+    public Optional<BrandEntity> findById(UUID id) {
+        return this.brandRepository.findById(id);
     }
 }

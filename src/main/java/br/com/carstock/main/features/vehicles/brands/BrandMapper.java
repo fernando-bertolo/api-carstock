@@ -13,6 +13,14 @@ public class BrandMapper {
                 .toList();
     }
 
+    public static BrandResponseDTO toDTO(BrandEntity brand) {
+        return new BrandResponseDTO(
+                brand.getId(),
+                brand.getName(),
+                brand.isActive()
+        );
+    }
+
     public static BrandEntity toEntity(CreateBrandDTO dto) {
         return new BrandEntity(dto.name(), dto.active());
     }

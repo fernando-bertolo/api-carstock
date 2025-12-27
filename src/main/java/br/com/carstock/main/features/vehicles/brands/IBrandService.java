@@ -1,6 +1,7 @@
 package br.com.carstock.main.features.vehicles.brands;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IBrandService {
@@ -8,5 +9,5 @@ public interface IBrandService {
     boolean update(BrandEntity brand, UUID id);
     boolean delete(UUID id);
     List<BrandEntity> findAll();
-    BrandEntity findById(UUID id);
+    Optional<BrandEntity> findById(UUID id);
 }
