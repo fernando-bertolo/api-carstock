@@ -22,8 +22,8 @@ public class ModelService implements IModelService {
 
     @Override
     public void create(CreateModelDTO model) {
-        BrandEntity brand = this.brandService.findById(model.brandId())
-                .orElseThrow(() -> new ResourceNotFoundException("Brand not found"));
+        BrandEntity brand = this.brandService.findById(model.brandId());
+
         this.modelRepository.save(ModelMapper.toEntity(model, brand));
     }
 
@@ -43,7 +43,7 @@ public class ModelService implements IModelService {
     }
 
     @Override
-    public Optional<ModelEntity> findById(UUID id) {
-        return this.modelRepository.findById(id);
+    public ModelEntity findById(UUID id) {
+        return this.modelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Model not found"));
     }
 }

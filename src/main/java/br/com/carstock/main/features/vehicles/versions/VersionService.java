@@ -7,6 +7,8 @@ import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class VersionService implements IVersionService {
@@ -20,15 +22,18 @@ public class VersionService implements IVersionService {
 
     @Override
     public void create(CreateVersionDTO dto) {
-        ModelEntity model = this.modelService.findById(dto.modelId())
-                .orElseThrow(() -> new ResourceNotFoundException("Model not found"));
-
-        VersionEntity version = VersionMapper.toEntity(dto, model);
-        this.versionRepository.save(version);
+        ModelEntity model = this.modelService.findById(dto.modelId());
+        this.versionRepository.save(VersionMapper.toEntity(dto, model));
     }
 
     @Override
     public List<VersionResponseDTO> findAll() {
         return VersionMapper.toDTO(this.versionRepository.findAll());
+    }
+
+    @Override
+    public VersionEntity findById(UUID id) {
+        return this.versionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Version not found"));
     }
 }

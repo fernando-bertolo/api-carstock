@@ -31,4 +31,17 @@ public class VersionMapper {
                 ))
                 .toList();
     }
+
+    public static VersionResponseDTO toDTO(VersionEntity version) {
+        return new VersionResponseDTO(
+                version.getName(),
+                version.getModel().getBrand().getName(),
+                version.getModel().getName(),
+                version.getModelYear(),
+                version.getEngine(),
+                version.getTransmission(),
+                version.getFuelType(),
+                version.isActive()
+        );
+    }
 }

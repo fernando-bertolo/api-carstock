@@ -1,5 +1,6 @@
 package br.com.carstock.main.features.vehicles.brands;
 
+import br.com.carstock.main.shared.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +37,8 @@ public class BrandService implements IBrandService{
     }
 
     @Override
-    public Optional<BrandEntity> findById(UUID id) {
-        return this.brandRepository.findById(id);
+    public BrandEntity findById(UUID id) {
+        return this.brandRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Brand not found"));
     }
 }

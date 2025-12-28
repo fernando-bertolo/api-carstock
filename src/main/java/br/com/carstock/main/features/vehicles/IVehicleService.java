@@ -1,8 +1,9 @@
 package br.com.carstock.main.features.vehicles;
 
-import br.com.carstock.main.features.vehicles.versions.CreateVersionDTO;
+
+import java.util.List;
 
 public interface IVehicleService {
-    void create(CreateVersionDTO dto);
-    void findAll();
+    void create(CreateVehicleDTO dto);
+    List<ResponseVehicleDTO> findAll();
 }

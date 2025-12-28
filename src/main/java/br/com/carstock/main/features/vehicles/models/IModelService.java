@@ -9,5 +9,5 @@ public interface IModelService {
     boolean update(ModelEntity brand, UUID id);
     boolean delete(UUID id);
     List<ModelEntity> findAll();
-    Optional<ModelEntity> findById(UUID id);
+    ModelEntity findById(UUID id);
 }
