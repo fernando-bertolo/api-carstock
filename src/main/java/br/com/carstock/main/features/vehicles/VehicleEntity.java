@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -32,27 +33,31 @@ public class VehicleEntity {
 
     private String color;
 
-    private String mileage;
+    @Column(nullable = false)
+    private Integer mileage;
 
-    private Double price;
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private StatusVehicleEnum status;
 
-    @Column(name = "entry_date")
+    @Column(name = "entry_date", nullable = false)
     private LocalDateTime entryDate;
 
     @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     public VehicleEntity() {}
 
     public VehicleEntity(
             UUID id, String name, VersionEntity version, String chassis, String licensePlate, String color,
-            String mileage, Double price, StatusVehicleEnum status, LocalDateTime entryDate
+            Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
     ) {
         this.id = id;
         this.name = name;
@@ -68,7 +73,7 @@ public class VehicleEntity {
 
     public VehicleEntity(
             String name, VersionEntity version, String chassis, String licensePlate, String color,
-            String mileage, Double price, StatusVehicleEnum status, LocalDateTime entryDate
+            Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
     ) {
         this.name = name;
         this.version = version;

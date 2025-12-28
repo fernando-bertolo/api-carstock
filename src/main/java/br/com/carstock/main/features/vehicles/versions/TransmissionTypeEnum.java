@@ -4,5 +4,6 @@ public enum TransmissionTypeEnum {
     MANUAL,
     AUTOMATIC,
     SEMI_AUTOMATIC,
-    CVT
+    CVT,
+    FLEX
 }

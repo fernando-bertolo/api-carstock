@@ -32,6 +32,7 @@ public class VehicleMapper {
                         vehicle.getColor(),
                         vehicle.getMileage(),
                         vehicle.getPrice(),
+                        vehicle.getVersion().getFuelType(),
                         vehicle.getStatus(),
                         vehicle.getEntryDate()
                 )).toList();

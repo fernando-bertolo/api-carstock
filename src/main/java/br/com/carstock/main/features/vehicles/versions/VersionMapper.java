@@ -20,6 +20,7 @@ public class VersionMapper {
     public static List<VersionResponseDTO> toDTO(List<VersionEntity> versions) {
         return versions.stream()
                 .map(version -> new VersionResponseDTO(
+                        version.getId(),
                         version.getName(),
                         version.getModel().getBrand().getName(),
                         version.getModel().getName(),
@@ -34,6 +35,7 @@ public class VersionMapper {
 
     public static VersionResponseDTO toDTO(VersionEntity version) {
         return new VersionResponseDTO(
+                version.getId(),
                 version.getName(),
                 version.getModel().getBrand().getName(),
                 version.getModel().getName(),
