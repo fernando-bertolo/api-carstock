@@ -15,6 +15,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(cors -> {}) // Libera cors
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // permite acesso a tudo
                 )

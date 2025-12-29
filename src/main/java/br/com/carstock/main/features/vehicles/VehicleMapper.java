@@ -1,7 +1,6 @@
 package br.com.carstock.main.features.vehicles;
 
 import br.com.carstock.main.features.vehicles.versions.VersionEntity;
-
 import java.util.List;
 
 public class VehicleMapper {
@@ -23,10 +22,12 @@ public class VehicleMapper {
     public static List<ResponseVehicleDTO> toDTO(List<VehicleEntity> vehicles) {
         return vehicles.stream()
                 .map(vehicle -> new ResponseVehicleDTO(
+                        vehicle.getId(),
                         vehicle.getName(),
                         vehicle.getVersion().getName(),
                         vehicle.getVersion().getModel().getName(),
                         vehicle.getVersion().getModel().getBrand().getName(),
+                        vehicle.getVersion().getModelYear(),
                         vehicle.getChassis(),
                         vehicle.getLicensePlate(),
                         vehicle.getColor(),
