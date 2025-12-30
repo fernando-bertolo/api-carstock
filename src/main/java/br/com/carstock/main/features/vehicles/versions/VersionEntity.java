@@ -25,9 +25,6 @@ public class VersionEntity {
     @JoinColumn(name = "model_id", nullable = false)
     private ModelEntity model;
 
-    @Column(name = "model_year")
-    private Integer modelYear;
-
     private String engine;
 
     @Enumerated(EnumType.STRING)
@@ -46,13 +43,12 @@ public class VersionEntity {
 
     public VersionEntity() {}
 
-    public VersionEntity(UUID id, String name, ModelEntity model, Integer modelYear, String engine,
+    public VersionEntity(UUID id, String name, ModelEntity model, String engine,
                          TransmissionTypeEnum transmission, FuelTypeEnum fuelType, boolean active
     ) {
         this.id = id;
         this.name = name;
         this.model = model;
-        this.modelYear = modelYear;
         this.engine = engine;
         this.transmission = transmission;
         this.fuelType = fuelType;
@@ -60,12 +56,11 @@ public class VersionEntity {
     }
 
     public VersionEntity(
-            String name, ModelEntity model, Integer modelYear, String engine,
+            String name, ModelEntity model, String engine,
             TransmissionTypeEnum transmission, FuelTypeEnum fuelType, boolean active
     ) {
         this.name = name;
         this.model = model;
-        this.modelYear = modelYear;
         this.engine = engine;
         this.transmission = transmission;
         this.fuelType = fuelType;

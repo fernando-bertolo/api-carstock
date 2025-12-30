@@ -9,6 +9,8 @@ public record CreateVehicleDTO(
         UUID versionId,
         String chassis,
         String licensePlate,
+        Integer modelYear,
+        Integer manufacturerYear,
         String color,
         Integer mileage,
         BigDecimal price,

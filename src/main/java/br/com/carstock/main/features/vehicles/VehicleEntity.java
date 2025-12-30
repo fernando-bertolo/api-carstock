@@ -27,6 +27,12 @@ public class VehicleEntity {
 
     private String chassis;
 
+    @Column(name = "manufacturer_year")
+    private Integer manufacturerYear;
+
+    @Column(name = "model_year")
+    private Integer modelYear;
+
     @Column(name = "license_plate")
     private String licensePlate;
 
@@ -62,14 +68,16 @@ public class VehicleEntity {
     public VehicleEntity() {}
 
     public VehicleEntity(
-            UUID id, String name, VersionEntity version, String chassis, String licensePlate, String color,
-            Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
+            UUID id, String name, VersionEntity version, String chassis, String licensePlate, Integer modelYear, Integer manufacturerYear,
+            String color, Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
     ) {
         this.id = id;
         this.name = name;
         this.version = version;
         this.chassis = chassis;
         this.licensePlate = licensePlate;
+        this.modelYear = modelYear;
+        this.manufacturerYear = manufacturerYear;
         this.color = color;
         this.mileage = mileage;
         this.price = price;
@@ -78,13 +86,15 @@ public class VehicleEntity {
     }
 
     public VehicleEntity(
-            String name, VersionEntity version, String chassis, String licensePlate, String color,
-            Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
+            String name, VersionEntity version, String chassis, String licensePlate, Integer modelYear, Integer manufacturerYear,
+            String color, Integer mileage, BigDecimal price, StatusVehicleEnum status, LocalDateTime entryDate
     ) {
         this.name = name;
         this.version = version;
         this.chassis = chassis;
         this.licensePlate = licensePlate;
+        this.modelYear = modelYear;
+        this.manufacturerYear = manufacturerYear;
         this.color = color;
         this.mileage = mileage;
         this.price = price;

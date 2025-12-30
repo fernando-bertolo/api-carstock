@@ -13,6 +13,7 @@ public record ResponseVehicleDTO(
         String modelName,
         String brandName,
         Integer modelYear,
+        Integer manufacturerYear,
         String chassis,
         String licensePlate,
         String color,

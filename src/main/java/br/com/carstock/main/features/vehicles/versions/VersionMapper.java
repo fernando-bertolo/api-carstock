@@ -9,7 +9,6 @@ public class VersionMapper {
         return new VersionEntity(
                 dto.name(),
                 model,
-                dto.modelYear(),
                 dto.engine(),
                 dto.transmission(),
                 dto.fuelType(),
@@ -24,7 +23,6 @@ public class VersionMapper {
                         version.getName(),
                         version.getModel().getBrand().getName(),
                         version.getModel().getName(),
-                        version.getModelYear(),
                         version.getEngine(),
                         version.getTransmission(),
                         version.getFuelType(),
@@ -39,7 +37,6 @@ public class VersionMapper {
                 version.getName(),
                 version.getModel().getBrand().getName(),
                 version.getModel().getName(),
-                version.getModelYear(),
                 version.getEngine(),
                 version.getTransmission(),
                 version.getFuelType(),
