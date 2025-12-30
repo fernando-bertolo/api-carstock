@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface IVehicleService {
     void create(CreateVehicleDTO dto);
-    List<ResponseVehicleDTO> findAll();
+    List<ResponseVehicleDTO> findAll(ParameterVehiclesDTO param);
 }

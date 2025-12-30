@@ -25,8 +25,8 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public List<ResponseVehicleDTO> findAll() {
-        List<VehicleEntity> vehicles = this.vehicleRepository.findAll();
+    public List<ResponseVehicleDTO> findAll(ParameterVehiclesDTO param) {
+        List<VehicleEntity> vehicles = this.vehicleRepository.findAllWithFilter(param.status());
         return VehicleMapper.toDTO(vehicles);
     }
 }

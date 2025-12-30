@@ -1,5 +1,6 @@
 package br.com.carstock.main.features.vehicles;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ public class VehicleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResponseVehicleDTO>> getAllVehicles() {
-        return ResponseEntity.ok(this.vehicleService.findAll());
+    public ResponseEntity<List<ResponseVehicleDTO>> getAllVehicles(ParameterVehiclesDTO param) {
+        return ResponseEntity.ok(this.vehicleService.findAll(param));
     }
 
     @PostMapping
