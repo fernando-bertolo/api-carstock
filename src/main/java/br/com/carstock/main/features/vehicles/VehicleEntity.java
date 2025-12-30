@@ -1,5 +1,6 @@
 package br.com.carstock.main.features.vehicles;
 
+import br.com.carstock.main.features.vehicles.optionals.VehicleOptionalEntity;
 import br.com.carstock.main.features.vehicles.versions.VersionEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,10 +24,6 @@ public class VehicleEntity {
     private UUID id;
 
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "version_id", nullable = false)
-    private VersionEntity version;
 
     private String chassis;
 
@@ -41,6 +40,13 @@ public class VehicleEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusVehicleEnum status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "version_id", nullable = false)
+    private VersionEntity version;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<VehicleOptionalEntity> optionals = new HashSet<>();
 
     @Column(name = "entry_date", nullable = false)
     private LocalDateTime entryDate;
